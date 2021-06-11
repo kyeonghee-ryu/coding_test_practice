@@ -16,21 +16,40 @@ for i in div_list:
         print(i)
         num/=i
 
-clothes =[["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"]]
-dic = {}
-for i in clothes:
-    if i[1] in dic:
-        dic[i[1]] += 1
-    else:
-        dic[i[1]] = 1
 
-res = len(clothes)
-if len(dic)!=1:
-    temp =
-    for cloth in list(dic.keys()):
-        if dic[cloth]!=1:
 
-else:
-    pass
+# 프로그래머스 해시 > 위장
 
-print(list(dic.keys()))
+from itertools import combinations
+clothes =[["yellowhat", "headgear"],
+          ["bluesunglasses", "eyewear"],
+          ["red_turban", "headgear"],
+          ["green_glasses", "eyewear"],
+          ["green_turban", "headgear"],
+          ["stripe", "shirt"],
+          ["yellow", "shirt"]]
+
+def solution(clothes):
+    dic = {}
+    for i in clothes:
+        if i[1] in dic:
+            dic[i[1]] += 1
+        else:
+            dic[i[1]] = 1
+    cloth = list ( dic.keys () )
+    cnt = sum ( dic.values () )
+
+    for i in range ( 1, len ( dic ) + 1 ):
+        if i > 1:
+            comb = list ( combinations ( cloth, i ) )
+            # comb_count =1
+            for j in range ( len ( comb ) ):
+                comb_cnt = 1
+                comb_lis = [dic[comb[j][k]] for k in range ( i )]
+                for k in comb_lis:
+                    comb_cnt *= k
+                cnt += comb_cnt
+
+    return cnt
+
+
